@@ -101,7 +101,54 @@ body{overflow-anchor:none}
   .ambient-e span{animation:none!important;}
   .loader-mark{animation:spin 2.8s linear infinite;}
 }
+
+/* Mobile stability: no scroll-driven UI, no decorative motion, no layout jumps. */
+@media (max-width:800px){
+  html, body { overflow-x:hidden; overflow-anchor:none; }
+  .progress { position:fixed !important; top:0; left:0; right:0; width:100%; height:2px; z-index:9999; }
+  .progress i { width:100% !important; background:rgba(232,77,69,.55) !important; box-shadow:none !important; }
+  .topbar {
+    position:fixed !important;
+    top:0 !important; left:0 !important; right:0 !important;
+    width:100%; box-sizing:border-box;
+    z-index:9998 !important;
+    transform:none !important;
+    transition:none !important;
+    animation:none !important;
+  }
+  .topbar::before,.topbar::after { animation:none !important; transition:none !important; }
+  .links a,.links a::before,.links a::after { animation:none !important; transition:none !important; }
+  main { padding-top:58px !important; }
+  .intro-space { height:6px !important; }
+  .page, .page.in { opacity:1 !important; transform:none !important; transition:none !important; animation:none !important; }
+  .sheet { transform:none !important; transition:none !important; animation:none !important; }
+  .sheet:hover { transform:none !important; }
+  .corner, .corner::before, .corner::after { animation:none !important; transition:none !important; }
+  .bottom-note { display:none !important; animation:none !important; transition:none !important; }
+  .page-tag { animation:none !important; transition:none !important; }
+  .page-index { font-size:6px !important; opacity:.46 !important; bottom:-22px !important; animation:none !important; border:0 !important; background:transparent !important; box-shadow:none !important; }
+  .page::before,.page::after { display:none !important; animation:none !important; }
+  .sheet::before,.sheet::after { animation:none !important; }
+  /* Only the in-page loading indicator may animate on mobile. */
+  .page-loader { animation:none !important; }
+  .page-loader:after { animation:softShimmer 2.8s ease-in-out infinite !important; }
+  .loader-mark { animation:spin 3.2s linear infinite !important; }
+  .loader-dot { animation:pulseDot 1.8s ease-in-out infinite !important; }
+  .loader-line:after { animation:loaderSweep 2.2s ease-in-out infinite !important; }
+}
+
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.page,.sheet,.bottom-note,.ambient-a,.ambient-b,.orbit-line{transition:none;animation:none}}
+
+@media (max-width:800px){
+  .topbar { padding:8px 10px !important; min-height:42px; }
+  .brand { font-size:8px !important; letter-spacing:.10em !important; gap:6px !important; }
+  .brand .dot { width:5px !important; height:5px !important; animation:none !important; box-shadow:0 0 0 3px rgba(232,77,69,.07) !important; }
+  .links { gap:10px !important; }
+  .links a { font-size:8px !important; letter-spacing:.01em !important; padding:4px 0 !important; }
+  .links a:before { display:none !important; }
+  .links a:after { height:1px !important; }
+  .page-tag { font-size:8px !important; letter-spacing:.10em !important; margin-bottom:8px !important; }
+}
 </style>
 </head>
 <body>
@@ -112,7 +159,7 @@ body{overflow-anchor:none}
 </header>
 <div class="side-mark"><b id="currentPage">01</b><span>/ 17</span></div>
 <div class="bottom-note" id="note"><span>SCROLL TO EXPLORE</span><i></i></div>
-<div class="ambient ambient-a"></div><div class="ambient ambient-b"></div><div class="orbit-line"></div>
+
 
 <main>
   <div class="intro-space"></div>
@@ -192,7 +239,7 @@ function updatePage(){
   pages.forEach((p,i)=>{const d=Math.abs(p.getBoundingClientRect().top-window.innerHeight*.2);if(d<dist){dist=d;best=i}});
   active=best; current.textContent=String(best+1).padStart(2,'0');
 }
-window.addEventListener('scroll',updatePage,{passive:true});updatePage();
+if(!isMobile){ window.addEventListener('scroll',updatePage,{passive:true}); updatePage(); } else { progress.style.width='100%'; }
 const navLinks=[...document.querySelectorAll('.links a')];
 const navMap=[{id:'about',el:document.querySelector('#about')},{id:'works',el:null},{id:'ai',el:document.querySelector('#ai')},{id:'end',el:document.querySelector('#end')}];
 const aboutEl=document.querySelector('#about'), worksEl=document.querySelector('#works'), aiEl=document.querySelector('#ai'), endEl=document.querySelector('#end');
@@ -200,7 +247,7 @@ function updateNav(){const y=window.scrollY+window.innerHeight*.28; const target
 if(!isMobile){ window.addEventListener('scroll',updateNav,{passive:true}); updateNav(); }
 navLinks.forEach(a=>a.addEventListener('click',e=>{
   const id=a.getAttribute('href'); const target=document.querySelector(id); if(!target)return;
-  if(isMobile) return;
+  if(isMobile){ e.preventDefault(); return; }
   e.preventDefault();
   const top=Math.max(0,target.getBoundingClientRect().top+window.scrollY-document.querySelector('.topbar').offsetHeight-12);
   window.scrollTo({top,behavior:'smooth'});
