@@ -77,22 +77,29 @@ main:after{right:26px;top:68vh;width:26px;height:58px;border-right:1px solid rgb
 @media (max-width:800px){
 html{scroll-behavior:auto;overflow-anchor:none}
 body{overflow-anchor:none}
-.topbar{position:fixed;top:0;left:0;right:0;z-index:100;padding:11px 12px;background:#faf9f5;backdrop-filter:none;-webkit-backdrop-filter:none;box-shadow:0 4px 14px rgba(43,42,38,.06);transform:translate3d(0,0,0);will-change:auto;contain:layout paint}
-.links{gap:clamp(8px,2.8vw,15px);flex-wrap:nowrap;min-width:0}
-.links a{white-space:nowrap;font-size:9px;padding:6px 0;letter-spacing:.02em}
-.brand{font-size:9px;flex:none}
+.progress{position:sticky;top:0;z-index:120;height:2px}
+.topbar{position:sticky;top:2px;left:auto;right:auto;z-index:110;padding:9px 12px;background:#faf9f5;backdrop-filter:none;-webkit-backdrop-filter:none;box-shadow:0 3px 12px rgba(43,42,38,.045);transform:none!important;will-change:auto;contain:layout style paint}
+.links{gap:clamp(7px,2vw,12px);flex:1;justify-content:flex-end;min-width:0;flex-wrap:nowrap}
+.links a{white-space:nowrap;font-size:8px;padding:5px 0;letter-spacing:.015em;line-height:1.2}
+.links a:before{display:none}
+.brand{font-size:8.5px;flex:none;letter-spacing:.14em}
 .side-mark{display:none}
-.page{width:94vw;margin-bottom:60px;opacity:1;transform:none;transition:none;overflow:visible;overflow-anchor:none}
-.page-tag{font-size:10px;margin-bottom:10px;letter-spacing:.14em}
-.page-index{bottom:-27px;font-size:8px;letter-spacing:.12em;gap:0;opacity:.58;background:transparent;border:0;padding:0;line-height:1}
+.page{width:94vw;margin-bottom:60px;opacity:1;transform:none!important;transition:none!important;overflow:visible;overflow-anchor:none}
+.page-tag{font-size:9px;margin-bottom:10px;letter-spacing:.12em}
+.page-index{left:50%;bottom:-25px;font-size:7px;letter-spacing:.10em;gap:0;opacity:.55;background:transparent;border:0;padding:0;line-height:1;transform:translateX(-50%)!important;animation:none!important}
 .corner.one{left:-8px;top:24px;width:44px;height:44px}.corner.two{right:-8px;bottom:30px;width:54px;height:34px}
-.page::before{display:none}
-.sheet{aspect-ratio:16/9;overflow:visible;transform:none!important;transition:box-shadow .25s ease}
+.page::before,.page::after{display:none}
+.sheet{aspect-ratio:16/9;overflow:visible;transform:none!important;transition:none!important}
 .sheet:hover{transform:none;box-shadow:var(--shadow)}
 .sheet img{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:contain}
-.bottom-note{font-size:8px;bottom:9px;white-space:nowrap}
+.bottom-note{font-size:7px;bottom:8px;white-space:nowrap}
 .lb-prev,.lb-next{width:36px;height:36px;font-size:14px}.lb-prev{left:10px}.lb-next{right:10px}.lb-close{right:10px;top:10px}.lightbox{padding:10px}.lb-img{max-width:96vw;max-height:84vh}
-.end-tools{width:94vw;margin:-22px auto 28px}.loader-inner{transform:scale(.95)}.loader-mark{width:20px;height:20px}.loader-line{width:70px}.loader-line:after{animation-duration:1.7s}
+.end-tools{width:94vw;margin:-22px auto 28px}.loader-inner{transform:scale(.92)}.loader-mark{width:19px;height:19px}.loader-line{width:68px}.loader-line:after{animation-duration:1.7s}
+}
+@media (max-width:800px){
+  .ambient-a,.ambient-b,.ambient-c,.ambient-d,.ambient-e,.orbit-line,.motion-trace,.motion-orbit{animation:none!important;transform:none!important;}
+  .ambient-e span{animation:none!important;}
+  .loader-mark{animation:spin 2.8s linear infinite;}
 }
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.page,.sheet,.bottom-note,.ambient-a,.ambient-b,.orbit-line{transition:none;animation:none}}
 </style>
@@ -170,8 +177,11 @@ const imgLoader=new IntersectionObserver(entries=>entries.forEach(e=>{
 }),{rootMargin:'900px 0px'});
 imgs.forEach((img,i)=>{ if(i>=4) imgLoader.observe(img); });
 
-const io=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')}),{threshold:.07});
-pages.slice(1).forEach(p=>io.observe(p));
+const isMobile=window.matchMedia('(max-width:800px)').matches;
+if(!isMobile){
+  const io=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')}),{threshold:.07});
+  pages.slice(1).forEach(p=>io.observe(p));
+}
 
 function updatePage(){
   const y=window.scrollY;
@@ -187,12 +197,13 @@ const navLinks=[...document.querySelectorAll('.links a')];
 const navMap=[{id:'about',el:document.querySelector('#about')},{id:'works',el:null},{id:'ai',el:document.querySelector('#ai')},{id:'end',el:document.querySelector('#end')}];
 const aboutEl=document.querySelector('#about'), worksEl=document.querySelector('#works'), aiEl=document.querySelector('#ai'), endEl=document.querySelector('#end');
 function updateNav(){const y=window.scrollY+window.innerHeight*.28; const targets=[aboutEl,worksEl,aiEl,endEl]; let idx=0; targets.forEach((el,i)=>{if(el && y>=el.offsetTop) idx=i}); navLinks.forEach((a,i)=>a.classList.toggle('active',i===idx));}
-window.addEventListener('scroll',updateNav,{passive:true}); updateNav();
+if(!isMobile){ window.addEventListener('scroll',updateNav,{passive:true}); updateNav(); }
 navLinks.forEach(a=>a.addEventListener('click',e=>{
   const id=a.getAttribute('href'); const target=document.querySelector(id); if(!target)return;
+  if(isMobile) return;
   e.preventDefault();
   const top=Math.max(0,target.getBoundingClientRect().top+window.scrollY-document.querySelector('.topbar').offsetHeight-12);
-  window.scrollTo({top,behavior:window.matchMedia('(max-width:800px)').matches?'auto':'smooth'});
+  window.scrollTo({top,behavior:'smooth'});
   history.replaceState(null,'',id);
 }));
 
