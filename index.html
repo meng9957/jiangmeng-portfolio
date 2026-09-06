@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>蒋萌｜个人作品集</title>
+<meta name="description" content="蒋萌个人作品集｜内容策划、新媒体运营、AI内容实践">
+<style>
+:root{--paper:#faf9f5;--paper2:#f2efe8;--ink:#292926;--muted:#8e897f;--line:#bcb6aa;--red:#e84d45;--shadow:0 18px 45px rgba(43,42,38,.08),0 5px 12px rgba(43,42,38,.05)}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;color:var(--ink);background:var(--paper);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;overflow-x:hidden}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;background-image:radial-gradient(rgba(41,41,38,.045) 1px,transparent 1px);background-size:28px 28px;mask-image:linear-gradient(to bottom,rgba(0,0,0,.8),rgba(0,0,0,.1))}
+body:after{content:"";position:fixed;left:7vw;top:15vh;width:14vw;height:45vh;border-left:1px solid rgba(41,41,38,.06);border-radius:50%;transform:rotate(-8deg);pointer-events:none;z-index:-1}
+img{max-width:100%}a{color:inherit}
+.progress{position:fixed;left:0;top:0;height:3px;width:100%;z-index:99;background:rgba(41,41,38,.04)}.progress i{display:block;height:100%;width:0;background:var(--red);box-shadow:0 0 12px rgba(232,77,69,.2)}
+.topbar{position:fixed;z-index:80;top:0;left:0;right:0;padding:22px clamp(18px,4vw,56px);display:flex;justify-content:space-between;align-items:center;pointer-events:none;background:rgba(250,249,245,.96);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid rgba(41,41,38,.07);box-shadow:0 5px 18px rgba(43,42,38,.035)}.topbar>*{pointer-events:auto}
+.brand{font-size:12px;letter-spacing:.18em;font-weight:700;display:flex;align-items:center;gap:9px;position:relative}.brand .dot{width:6px;height:6px;border-radius:50%;background:var(--red);display:inline-block;box-shadow:0 0 0 4px rgba(232,77,69,.08);animation:blink 2.4s ease-in-out infinite}.brand:after{content:"";position:absolute;left:15px;top:100%;width:48px;height:1px;background:linear-gradient(90deg,var(--ink),transparent);opacity:.28;margin-top:8px}
+.links{display:flex;gap:42px;align-items:center}.links a{text-decoration:none;font-size:14px;letter-spacing:.08em;padding:8px 1px;color:#6f6a61;position:relative;transition:color .25s ease}.links a:after{content:"";position:absolute;left:0;right:100%;bottom:0;height:1px;background:var(--red);transition:right .28s ease}.links a:before{content:"";position:absolute;left:-15px;top:50%;width:4px;height:4px;border-radius:50%;background:rgba(41,41,38,.18);transform:translateY(-50%);transition:.25s ease}.links a:first-child:before{display:none}.links a:hover,.links a.active{color:var(--ink)}.links a:hover:after,.links a.active:after{right:0}.links a:hover:before,.links a.active:before{background:var(--red);transform:translateY(-50%) scale(1.8)}
+main{padding:86px 0 90px}.intro-space{height:clamp(18px,4vw,44px)}
+.page{width:min(1320px,90vw);margin:0 auto 92px;position:relative;opacity:0;transform:translateY(24px);transition:opacity .75s ease,transform .75s ease}.page.in{opacity:1;transform:none}
+.page-tag{display:flex;align-items:center;gap:10px;margin:0 0 14px 4px;color:#756f65;font-size:13px;letter-spacing:.20em;text-transform:uppercase}.page-tag:before{content:"";width:24px;height:1px;background:var(--ink)}.page-tag .mini{width:4px;height:4px;border-radius:50%;background:var(--red)}
+.sheet{position:relative;aspect-ratio:16/9;background:#fff;border:1px solid rgba(41,41,38,.11);box-shadow:var(--shadow);overflow:visible;transition:transform .45s cubic-bezier(.2,.7,.2,1),box-shadow .45s ease}.sheet:before{content:none}.sheet:after{content:"";position:absolute;right:18px;bottom:14px;width:68px;height:38px;border-right:1px solid rgba(41,41,38,.14);border-bottom:1px solid rgba(41,41,38,.14);border-radius:0 0 60% 0;transform:rotate(4deg);pointer-events:none}.sheet:before{content:none}.sheet:hover{transform:translateY(-5px) rotate(.12deg);box-shadow:0 24px 55px rgba(43,42,38,.1),0 7px 15px rgba(43,42,38,.06)}
+.sheet img{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:contain;background:#fff;cursor:zoom-in;opacity:0;transition:opacity .45s ease}.sheet img.loaded{opacity:1}
+.page-index{position:absolute;left:50%;bottom:-38px;z-index:5;transform:translateX(-50%);font-size:10px;letter-spacing:.18em;color:#969087;display:flex;align-items:center;gap:6px;white-space:nowrap;background:transparent;padding:0;border:0;border-radius:0;text-shadow:0 1px 0 rgba(255,255,255,.7)}
+.page-index:before,.page-index:after{content:none}
+
+.page::before{content:"";position:absolute;inset:auto 0 -56px 0;height:34px;pointer-events:none}
+.page-loader{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,rgba(250,249,245,.97),rgba(255,255,255,.99));z-index:3;opacity:1;transition:opacity .38s ease}.page-loader:before{content:"";position:absolute;inset:12%;border:1px solid rgba(41,41,38,.045);border-radius:50%;transform:rotate(-8deg);pointer-events:none}.page-loader:after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 0%,rgba(255,255,255,.55) 45%,transparent 70%);transform:translateX(-100%);animation:softShimmer 2.4s ease-in-out infinite;pointer-events:none}.page-loader.done{opacity:0;pointer-events:none}.loader-inner{display:flex;flex-direction:column;align-items:center;gap:10px;color:#8b867d;letter-spacing:.2em;font-size:9px}.loader-row{display:flex;align-items:center;gap:8px}.loader-dot{width:5px;height:5px;border:1px solid rgba(41,41,38,.3);border-radius:50%;animation:pulseDot 1.6s ease-in-out infinite}.loader-line{width:88px;height:1px;background:linear-gradient(90deg,transparent,rgba(110,106,99,.16),transparent);position:relative;overflow:hidden}.loader-line:after{content:"";position:absolute;left:-24px;top:0;width:24px;height:1px;background:linear-gradient(90deg,transparent,rgba(232,77,69,.72),transparent);animation:loaderSweep 1.9s ease-in-out infinite}.loader-mark{width:22px;height:22px;border:1px solid rgba(41,41,38,.15);border-left-color:rgba(232,77,69,.5);border-radius:50%;animation:spin 3.6s linear infinite}.loader-mark:after{content:"";display:block;width:4px;height:4px;margin:3px auto 0;border-radius:50%;background:rgba(232,77,69,.7);box-shadow:0 0 0 3px rgba(232,77,69,.06)}
+@keyframes loaderSweep{0%{left:-24px}100%{left:88px}}@keyframes softShimmer{0%{transform:translateX(-120%)}55%,100%{transform:translateX(120%)}}@keyframes pulseDot{0%,100%{opacity:.35;transform:scale(.9)}50%{opacity:1;transform:scale(1.15)}}@keyframes spin{to{transform:rotate(360deg)}}
+.side-mark{position:fixed;right:17px;top:50%;transform:translateY(-50%);z-index:40;display:flex;flex-direction:column;align-items:center;gap:8px;color:#999287}.side-mark:before,.side-mark:after{content:"";width:1px;height:34px;background:var(--line);opacity:.6}.side-mark span{writing-mode:vertical-rl;font-size:9px;letter-spacing:.18em}.side-mark b{font-size:10px;color:var(--ink);font-weight:600}
+.corner{position:absolute;pointer-events:none}.corner.one{left:-34px;top:36px;width:72px;height:72px;border-left:1px dashed var(--line);border-top:1px dashed var(--line);border-radius:50% 0 0 0;transform:rotate(-8deg)}.corner.two{right:-30px;bottom:58px;width:92px;height:52px;border-right:1px dashed var(--line);border-bottom:1px dashed var(--line);border-radius:0 0 50% 0;transform:rotate(7deg)}
+.bottom-note{position:fixed;left:50%;bottom:17px;transform:translateX(-50%);font-size:9px;letter-spacing:.22em;color:#8f897f;z-index:35;display:flex;align-items:center;gap:12px;transition:opacity .5s,transform .5s}.bottom-note i{display:block;width:74px;height:1px;background:linear-gradient(90deg,transparent,var(--red),transparent);position:relative;overflow:hidden}.bottom-note i:after{content:"";position:absolute;left:-16px;top:0;width:16px;height:1px;background:#fff;filter:blur(1px);animation:scan 2.8s ease-in-out infinite}.bottom-note.hide{opacity:0;transform:translate(-50%,12px)}
+.end-tools{width:min(1320px,90vw);margin:-46px auto 34px;display:flex;justify-content:flex-end;gap:9px;flex-wrap:wrap}.tool{display:inline-flex;align-items:center;gap:7px;text-decoration:none;font-size:11px;padding:9px 13px;border:1px solid rgba(41,41,38,.28);border-radius:999px;background:#fff;transition:.25s ease}.tool:hover{background:var(--ink);color:#fff;transform:translateY(-2px)}
+.footer{width:min(1320px,90vw);margin:auto;padding:22px 0 10px;color:#9a9489;font-size:10px;letter-spacing:.08em;text-align:center}
+.lightbox{position:fixed;inset:0;background:rgba(22,22,20,.86);display:none;z-index:200;padding:26px;align-items:center;justify-content:center}.lightbox.show{display:flex}.lb-img{max-width:min(92vw,1500px);max-height:88vh;width:auto;height:auto;background:#fff;box-shadow:0 35px 100px rgba(0,0,0,.4)}.lb-close,.lb-prev,.lb-next{position:absolute;border:1px solid rgba(255,255,255,.38);background:rgba(255,255,255,.07);color:#fff;width:42px;height:42px;border-radius:50%;font-size:18px;cursor:pointer;backdrop-filter:blur(5px)}.lb-close{right:22px;top:18px}.lb-prev{left:22px;top:50%;transform:translateY(-50%)}.lb-next{right:22px;top:50%;transform:translateY(-50%)}.lb-meta{position:absolute;left:50%;bottom:18px;transform:translateX(-50%);color:#fff;font-size:11px;letter-spacing:.18em;background:rgba(0,0,0,.22);padding:7px 10px;border-radius:999px}.lb-btn:hover{background:rgba(255,255,255,.16)}
+
+
+/* subtle editorial motion */
+.motion-trace{position:fixed;left:18vw;top:56vh;width:28vw;height:1px;pointer-events:none;z-index:-1;background:linear-gradient(90deg,transparent,rgba(41,41,38,.07),transparent);overflow:hidden}.motion-trace:after{content:"";position:absolute;left:-20%;top:0;width:20%;height:1px;background:linear-gradient(90deg,transparent,rgba(232,77,69,.35),transparent);animation:traceMove 7s ease-in-out infinite}.motion-orbit{position:fixed;right:12vw;top:32vh;width:70px;height:70px;border:1px solid rgba(41,41,38,.06);border-right-color:rgba(232,77,69,.13);border-radius:48% 52% 46% 54%;pointer-events:none;z-index:-1;animation:orbitFloat 9s ease-in-out infinite}
+@keyframes traceMove{0%,100%{left:-20%}55%{left:100%}}@keyframes orbitFloat{0%,100%{transform:translate3d(0,0,0) rotate(0deg)}50%{transform:translate3d(-8px,10px,0) rotate(8deg)}}
+
+.ambient{position:fixed;pointer-events:none;z-index:-1;opacity:.5}.ambient-a{right:5vw;top:23vh;width:120px;height:120px;border:1px dashed rgba(41,41,38,.16);border-left-color:transparent;border-bottom-color:transparent;border-radius:50%;animation:float 8s ease-in-out infinite}.ambient-b{left:4vw;bottom:18vh;width:46px;height:46px;border:1px solid rgba(232,77,69,.28);border-radius:50%;box-shadow:22px -12px 0 -21px var(--red);animation:bob 5s ease-in-out infinite}.orbit-line{position:fixed;right:-7vw;top:42vh;width:24vw;height:15vh;border-top:1px solid rgba(41,41,38,.08);border-right:1px dashed rgba(41,41,38,.11);border-radius:50%;transform:rotate(-10deg);pointer-events:none;z-index:-1;animation:drift 10s ease-in-out infinite}/* refined page separators + editorial line details */
+.page:not(:first-of-type)::before{
+  content:"";position:absolute;left:50%;top:-46px;width:190px;height:1px;
+  transform:translateX(-50%);
+  background:linear-gradient(90deg,transparent,rgba(105,101,94,.14) 18%,rgba(105,101,94,.22) 50%,rgba(105,101,94,.14) 82%,transparent);
+}
+.page:not(:first-of-type)::after{
+  content:"";position:absolute;left:50%;top:-53px;width:32px;height:10px;
+  transform:translateX(-50%) rotate(-2deg);
+  border-top:1px solid rgba(105,101,94,.10);
+  border-radius:50%;opacity:.75;
+}
+.page:nth-of-type(3n)::after{width:46px;transform:translateX(-50%) rotate(2deg)}
+.page:nth-of-type(4n)::before{width:240px}
+.page-tag{position:relative;margin-bottom:18px}
+.page-tag:before{transition:width .6s ease}
+.page.in .page-tag:before{width:36px}
+.page.in .page-index{animation:pageIndexIn .7s ease both}
+.page-tag:after{content:"";display:block;width:58px;height:1px;margin-left:2px;background:linear-gradient(90deg,rgba(41,41,38,.15),rgba(41,41,38,.03));transform:translateY(5px)}
+.sheet:after{content:"";position:absolute;inset:18px;border:1px solid rgba(41,41,38,.045);pointer-events:none;opacity:.6}
+.corner.one:after,.corner.two:after{content:"";position:absolute;width:10px;height:10px;border-top:1px solid rgba(41,41,38,.16);border-left:1px solid rgba(41,41,38,.16);left:8px;top:8px}
+.corner.two:after{left:auto;top:auto;right:8px;bottom:8px;border-top:0;border-left:0;border-right:1px solid rgba(41,41,38,.16);border-bottom:1px solid rgba(41,41,38,.16)}
+
+/* quiet editorial ornaments: thin arcs and registration ticks */
+.ambient-c{left:8vw;top:33vh;width:210px;height:105px;border-top:1px solid rgba(41,41,38,.07);border-left:1px solid rgba(41,41,38,.035);border-radius:65% 0 0 0;transform:rotate(-11deg);animation:drift2 15s ease-in-out infinite}
+.ambient-d{right:10vw;bottom:23vh;width:120px;height:46px;border-bottom:1px dashed rgba(41,41,38,.08);border-radius:50%;transform:rotate(9deg);animation:drift2 12s ease-in-out infinite reverse}
+.ambient-e{left:49.8%;top:13vh;width:1px;height:72px;background:linear-gradient(to bottom,rgba(41,41,38,.15),transparent);opacity:.4}
+.ambient-e span{position:absolute;width:7px;height:7px;border:1px solid rgba(41,41,38,.18);border-radius:50%;left:-3px;top:13px;background:var(--paper);animation:float 5s ease-in-out infinite}
+/* small registration ticks around the stage */
+main:before,main:after{content:"";position:fixed;pointer-events:none;z-index:-1;opacity:.32}
+main:before{left:25px;top:42vh;width:24px;height:52px;border-left:1px solid rgba(41,41,38,.11);border-top:1px solid rgba(41,41,38,.11);border-radius:18px 0 0 0}
+main:after{right:26px;top:68vh;width:26px;height:58px;border-right:1px solid rgba(41,41,38,.10);border-bottom:1px solid rgba(41,41,38,.10);border-radius:0 0 18px 0}
+@keyframes pageIndexIn{from{opacity:0;transform:translate(-50%,4px)}to{opacity:.9;transform:translate(-50%,0)}}
+@keyframes drift2{0%,100%{transform:rotate(-7deg) translate3d(0,0,0)}50%{transform:rotate(-4deg) translate3d(10px,-5px,0)}}
+@media (max-width:800px){
+html{scroll-behavior:auto;overflow-anchor:none}
+body{overflow-anchor:none}
+.topbar{position:fixed;top:0;left:0;right:0;z-index:100;padding:11px 12px;background:#faf9f5;backdrop-filter:none;-webkit-backdrop-filter:none;box-shadow:0 4px 14px rgba(43,42,38,.06);transform:translate3d(0,0,0);will-change:auto;contain:layout paint}
+.links{gap:clamp(8px,2.8vw,15px);flex-wrap:nowrap;min-width:0}
+.links a{white-space:nowrap;font-size:9px;padding:6px 0;letter-spacing:.02em}
+.brand{font-size:9px;flex:none}
+.side-mark{display:none}
+.page{width:94vw;margin-bottom:60px;opacity:1;transform:none;transition:none;overflow:visible;overflow-anchor:none}
+.page-tag{font-size:10px;margin-bottom:10px;letter-spacing:.14em}
+.page-index{bottom:-27px;font-size:8px;letter-spacing:.12em;gap:0;opacity:.58;background:transparent;border:0;padding:0;line-height:1}
+.corner.one{left:-8px;top:24px;width:44px;height:44px}.corner.two{right:-8px;bottom:30px;width:54px;height:34px}
+.page::before{display:none}
+.sheet{aspect-ratio:16/9;overflow:visible;transform:none!important;transition:box-shadow .25s ease}
+.sheet:hover{transform:none;box-shadow:var(--shadow)}
+.sheet img{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:contain}
+.bottom-note{font-size:8px;bottom:9px;white-space:nowrap}
+.lb-prev,.lb-next{width:36px;height:36px;font-size:14px}.lb-prev{left:10px}.lb-next{right:10px}.lb-close{right:10px;top:10px}.lightbox{padding:10px}.lb-img{max-width:96vw;max-height:84vh}
+.end-tools{width:94vw;margin:-22px auto 28px}.loader-inner{transform:scale(.95)}.loader-mark{width:20px;height:20px}.loader-line{width:70px}.loader-line:after{animation-duration:1.7s}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.page,.sheet,.bottom-note,.ambient-a,.ambient-b,.orbit-line{transition:none;animation:none}}
+</style>
+</head>
+<body>
+<div class="progress"><i id="progress"></i></div>
+<header class="topbar">
+  <div class="brand"><span class="dot"></span>蒋萌 / PORTFOLIO</div>
+  <nav class="links"><a href="#about">关于我</a><a href="#works">运营作品</a><a href="#ai">AI实践</a><a href="#end">联系我</a></nav>
+</header>
+<div class="side-mark"><b id="currentPage">01</b><span>/ 17</span></div>
+<div class="bottom-note" id="note"><span>SCROLL TO EXPLORE</span><i></i></div>
+<div class="ambient ambient-a"></div><div class="ambient ambient-b"></div><div class="orbit-line"></div>
+
+<main>
+  <div class="intro-space"></div>
+  <section class="page in" id="p01"><span class="corner one"></span><div class="sheet"><div class="page-loader" aria-hidden="true"><div class="loader-inner"><div class="loader-mark"></div><div class="loader-row"><span>LOADING</span><span class="loader-dot"></span></div><span class="loader-line"></span></div></div><span class="page-index">01 / 17</span><img src="assets/pages/page-01.webp" alt="个人作品集封面" loading="eager" decoding="async"></div></section>
+
+  <section class="page" id="about"><div class="page-tag"><span class="mini"></span>ABOUT ME</div><span class="corner two"></span><div class="sheet"><div class="page-loader" aria-hidden="true"><div class="loader-inner"><div class="loader-mark"></div><div class="loader-row"><span>LOADING</span><span class="loader-dot"></span></div><span class="loader-line"></span></div></div><span class="page-index">02 / 17</span><img src="assets/pages/page-02.webp" alt="关于我" loading="eager" decoding="async"></div></section>
+  <section class="page"><div class="sheet"><div class="page-loader" aria-hidden="true"><div class="loader-inner"><div class="loader-mark"></div><div class="loader-row"><span>LOADING</span><span class="loader-dot"></span></div><span class="loader-line"></span></div></div><span class="page-index">03 / 17</span><img src="assets/pages/page-03.webp" alt="我的内容运营思路" loading="eager" decoding="async"></div></section>
+
+  <section class="page" id="works"><div class="page-tag"><span class="mini"></span>WORKS / CONTENT</div><div class="sheet"><div class="page-loader" aria-hidden="true"><div class="loader-inner"><div class="loader-mark"></div><div class="loader-row"><span>LOADING</span><span class="loader-dot"></span></div><span class="loader-line"></span></div></div><span class="page-index">04 / 17</span><img src="assets/pages/page-04.webp" alt="运营作品" loading="eager" decoding="async"></div></section>
+  <section class="page"><div class="sheet"><div class="page-loader" aria-hidden="true"><div class="loader-inner"><div class="loader-mark"></div><div class="loader-row"><span>LOADING</span><span class="loader-dot"></span></div><span class="loader-line"></span></div></div><span class="page-index">05 / 17</span><img src="assets/pages/page-05.webp" alt="个人视频号账号数据" loading="eager" decoding="async"></div></section>
+  <section class="page"><div class="sheet"><div class="page-loader" aria-hidden="true"><div class="loader-inner"><div class="loader-mark"></div><div class="loader-row"><span>LOADING</span><span class="loader-dot"></span></div><span class="loader-line"></span></div></div><span class="page-index">06 / 17</span><img src="assets/pages/page-06.webp" alt="期货热点行情视频号案例" loading="lazy" decoding="async"></div></section>
+  <section class="page"><div class="sheet"><div class="page-loader" aria-hidden="true"><div class="loader-inner"><div class="loader-mark"></div><div class="loader-row"><span>LOADING</span><span class="loader-dot"></span></div><span class="loader-line"></span></div></div><span class="page-index">07 / 17</span><img src="assets/pages/page-07.webp" alt="个人视频号爆款视频" loading="lazy" decoding="async"></div></section>
+  <section class="page"><div class="sheet"><div class="page-loader" aria-hidden="true"><div class="loader-inner"><div class="loader-mark"></div><div class="loader-row"><span>LOADING</span><span class="loader-dot"></span></div><span class="loader-line"></span></div></div><span class="page-index">08 / 17</span><img src="assets/pages/page-08.webp" alt="个人小红书账号数据" loading="lazy" decoding="async"></div></section>
+  <section class="page"><div class="sheet"><div class="page-loader" aria-hidden="true"><div class="loader-inner"><div class="loader-mark"></div><div class="loader-row"><span>LOADING</span><span class="loader-dot"></span></div><span class="loader-line"></span></div></div><span class="page-index">09 / 17</span><img src="assets/pages/page-09.webp" alt="ETF网格知识小红书案例" loading="lazy" decoding="async"></div></section>
+  <section class="page"><div class="sheet"><div class="page-loader" aria-hidden="true"><div class="loader-inner"><div class="loader-mark"></div><div class="loader-row"><span>LOADING</span><span class="loader-dot"></span></div><span class="loader-line"></span></div></div><span class="page-index">10 / 17</span><img src="assets/pages/page-10.webp" alt="个人小红书账号爆款笔记" loading="lazy" decoding="async"></div></section>
+  <section class="page"><div class="sheet"><div class="page-loader" aria-hidden="true"><div class="loader-inner"><div class="loader-mark"></div><div class="loader-row"><span>LOADING</span><span class="loader-dot"></span></div><span class="loader-line"></span></div></div><span class="page-index">11 / 17</span><img src="assets/pages/page-11.webp" alt="财经内容矩阵项目案例" loading="lazy" decoding="async"></div></section>
+  <section class="page"><div class="sheet"><div class="page-loader" aria-hidden="true"><div class="loader-inner"><div class="loader-mark"></div><div class="loader-row"><span>LOADING</span><span class="loader-dot"></span></div><span class="loader-line"></span></div></div><span class="page-index">12 / 17</span><img src="assets/pages/page-12.webp" alt="交易内容账号矩阵项目案例" loading="lazy" decoding="async"></div></section>
+
+  <section class="page" id="ai"><div class="page-tag"><span class="mini"></span>AI / CONTENT PRACTICE</div><div class="sheet"><div class="page-loader" aria-hidden="true"><div class="loader-inner"><div class="loader-mark"></div><div class="loader-row"><span>LOADING</span><span class="loader-dot"></span></div><span class="loader-line"></span></div></div><span class="page-index">13 / 17</span><img src="assets/pages/page-13.webp" alt="AI内容创作实践" loading="lazy" decoding="async"></div></section>
+  <section class="page"><div class="sheet"><div class="page-loader" aria-hidden="true"><div class="loader-inner"><div class="loader-mark"></div><div class="loader-row"><span>LOADING</span><span class="loader-dot"></span></div><span class="loader-line"></span></div></div><span class="page-index">14 / 17</span><img src="assets/pages/page-14.webp" alt="Coze AI工作流实践" loading="lazy" decoding="async"></div></section>
+  <section class="page"><div class="sheet"><div class="page-loader" aria-hidden="true"><div class="loader-inner"><div class="loader-mark"></div><div class="loader-row"><span>LOADING</span><span class="loader-dot"></span></div><span class="loader-line"></span></div></div><span class="page-index">15 / 17</span><img src="assets/pages/page-15.webp" alt="AI应用实践" loading="lazy" decoding="async"></div></section>
+  <section class="page"><div class="sheet"><div class="page-loader" aria-hidden="true"><div class="loader-inner"><div class="loader-mark"></div><div class="loader-row"><span>LOADING</span><span class="loader-dot"></span></div><span class="loader-line"></span></div></div><span class="page-index">16 / 17</span><img src="assets/pages/page-16.webp" alt="AI能力与工具" loading="lazy" decoding="async"></div></section>
+
+  <section class="page" id="end"><div class="page-tag"><span class="mini"></span>THE END</div><span class="corner two"></span><div class="sheet"><div class="page-loader" aria-hidden="true"><div class="loader-inner"><div class="loader-mark"></div><div class="loader-row"><span>LOADING</span><span class="loader-dot"></span></div><span class="loader-line"></span></div></div><span class="page-index">17 / 17</span><img src="assets/pages/page-17.webp" alt="谢谢观看" loading="lazy" decoding="async"></div></section>
+</main>
+
+<div class="end-tools"><a class="tool" href="蒋萌作品集.pdf" target="_blank" rel="noopener">↗ 打开原版 PDF</a><a class="tool" href="#p01">↑ 回到开头</a></div>
+<footer class="footer">© 2026 蒋萌 · 个人作品集</footer>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="放大查看作品集页面">
+  <button class="lb-btn lb-close" id="lbClose" aria-label="关闭">×</button>
+  <button class="lb-btn lb-prev" id="lbPrev" aria-label="上一页">‹</button>
+  <img class="lb-img" id="lbImg" alt="作品集页面大图">
+  <button class="lb-btn lb-next" id="lbNext" aria-label="下一页">›</button>
+  <div class="lb-meta" id="lbMeta">01 / 17</div>
+</div>
+
+<script>
+const pages=[...document.querySelectorAll('.page')];
+const imgs=pages.map(p=>p.querySelector('img'));
+const progress=document.getElementById('progress');
+const current=document.getElementById('currentPage');
+const note=document.getElementById('note');
+const lb=document.getElementById('lightbox');
+const lbImg=document.getElementById('lbImg');
+const lbMeta=document.getElementById('lbMeta');
+let active=0;
+
+function hideLoader(img){
+  img.classList.add('loaded');
+  const loader=img.closest('.sheet')?.querySelector('.page-loader');
+  if(loader) loader.classList.add('done');
+}
+function loadImage(img){
+  if(!img) return;
+  if(!img.getAttribute('src') && img.dataset.src){ img.src=img.dataset.src; img.removeAttribute('data-src'); }
+}
+imgs.forEach(img=>{img.addEventListener('load',()=>hideLoader(img),{once:false});img.addEventListener('error',()=>hideLoader(img),{once:false});});
+imgs.forEach((img,i)=>{ if(i<3){loadImage(img); if(img.complete) hideLoader(img);} });
+const imgLoader=new IntersectionObserver(entries=>entries.forEach(e=>{
+  if(e.isIntersecting){ loadImage(e.target); imgLoader.unobserve(e.target); }
+}),{rootMargin:'900px 0px'});
+imgs.forEach((img,i)=>{ if(i>=4) imgLoader.observe(img); });
+
+const io=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')}),{threshold:.07});
+pages.slice(1).forEach(p=>io.observe(p));
+
+function updatePage(){
+  const y=window.scrollY;
+  const h=document.documentElement.scrollHeight-window.innerHeight;
+  progress.style.width=(h>0?Math.min(100,y/h*100):0)+'%';
+  if(y>220) note.classList.add('hide');
+  let best=0,dist=Infinity;
+  pages.forEach((p,i)=>{const d=Math.abs(p.getBoundingClientRect().top-window.innerHeight*.2);if(d<dist){dist=d;best=i}});
+  active=best; current.textContent=String(best+1).padStart(2,'0');
+}
+window.addEventListener('scroll',updatePage,{passive:true});updatePage();
+const navLinks=[...document.querySelectorAll('.links a')];
+const navMap=[{id:'about',el:document.querySelector('#about')},{id:'works',el:null},{id:'ai',el:document.querySelector('#ai')},{id:'end',el:document.querySelector('#end')}];
+const aboutEl=document.querySelector('#about'), worksEl=document.querySelector('#works'), aiEl=document.querySelector('#ai'), endEl=document.querySelector('#end');
+function updateNav(){const y=window.scrollY+window.innerHeight*.28; const targets=[aboutEl,worksEl,aiEl,endEl]; let idx=0; targets.forEach((el,i)=>{if(el && y>=el.offsetTop) idx=i}); navLinks.forEach((a,i)=>a.classList.toggle('active',i===idx));}
+window.addEventListener('scroll',updateNav,{passive:true}); updateNav();
+navLinks.forEach(a=>a.addEventListener('click',e=>{
+  const id=a.getAttribute('href'); const target=document.querySelector(id); if(!target)return;
+  e.preventDefault();
+  const top=Math.max(0,target.getBoundingClientRect().top+window.scrollY-document.querySelector('.topbar').offsetHeight-12);
+  window.scrollTo({top,behavior:window.matchMedia('(max-width:800px)').matches?'auto':'smooth'});
+  history.replaceState(null,'',id);
+}));
+
+function openLightbox(i){active=i;loadImage(imgs[i]);lbImg.src=imgs[i].currentSrc||imgs[i].src;lbMeta.textContent=String(i+1).padStart(2,'0')+' / 17';lb.classList.add('show');document.body.style.overflow='hidden'}
+function closeLightbox(){lb.classList.remove('show');document.body.style.overflow='';lbImg.removeAttribute('src')}
+function navLightbox(delta){active=(active+delta+imgs.length)%imgs.length;loadImage(imgs[active]);lbImg.src=imgs[active].currentSrc||imgs[active].src;lbMeta.textContent=String(active+1).padStart(2,'0')+' / 17'}
+imgs.forEach((img,i)=>img.addEventListener('click',()=>openLightbox(i)));
+document.getElementById('lbClose').onclick=closeLightbox;
+document.getElementById('lbPrev').onclick=()=>navLightbox(-1);
+document.getElementById('lbNext').onclick=()=>navLightbox(1);
+lb.addEventListener('click',e=>{if(e.target===lb)closeLightbox()});
+document.addEventListener('keydown',e=>{if(!lb.classList.contains('show'))return;if(e.key==='Escape')closeLightbox();if(e.key==='ArrowLeft')navLightbox(-1);if(e.key==='ArrowRight')navLightbox(1)});
+</script>
+
+<div class="ambient ambient-c"></div>
+<div class="ambient ambient-d"></div>
+<div class="ambient ambient-e"><span></span></div>
+<div class="motion-trace"></div><div class="motion-orbit"></div>
+</body>
+</html>
